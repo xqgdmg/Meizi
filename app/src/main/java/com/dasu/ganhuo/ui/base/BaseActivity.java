@@ -44,26 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetState
         NetBroadcastReceiver.removeListener(this);
     }
 
-    protected void addNoNetworkTipView(ViewGroup viewGroup) {
-        mNoNetworkTipView = LayoutInflater.from(this).inflate(R.layout.view_no_network_tip, null);
-        ViewGroup mainGroup = viewGroup;
-        mNoNetworkTipView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNetworkSetting();
-            }
-        });
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (mainGroup != null) {
-            if (isNetworkAvailable()) {
-                mNoNetworkTipView.setVisibility(View.GONE);
-            } else {
-                mNoNetworkTipView.setVisibility(View.VISIBLE);
-            }
-            mainGroup.addView(mNoNetworkTipView, 0, params);
-        }
-    }
-
     protected void showLoadingView(ViewGroup viewGroup) {
         ViewGroup mainGroup = viewGroup;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -80,12 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetState
         }
     }
 
-    private void openNetworkSetting() {
-        Intent intent = new Intent(ACTION_WIRELESS_SETTINGS);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(intent);
-    }
-
     @Override
     public void onNetChanged(boolean isConnected) {
         if (mNoNetworkTipView == null) {
@@ -96,10 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetState
         } else {
             mNoNetworkTipView.setVisibility(View.VISIBLE);
         }
-    }
-
-    protected boolean isNetworkAvailable() {
-        return NetworkUtils.isConnected(this);
     }
 
 }
