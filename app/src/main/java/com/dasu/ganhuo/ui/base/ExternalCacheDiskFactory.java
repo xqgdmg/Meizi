@@ -18,10 +18,6 @@ public class ExternalCacheDiskFactory extends DiskLruCacheFactory {
         this(context, DiskCache.Factory.DEFAULT_DISK_CACHE_DIR, DiskCache.Factory.DEFAULT_DISK_CACHE_SIZE);
     }
 
-    public ExternalCacheDiskFactory(Context context, int diskCacheSize) {
-        this(context, DiskCache.Factory.DEFAULT_DISK_CACHE_DIR, diskCacheSize);
-    }
-
     public ExternalCacheDiskFactory(final Context context, final String diskCacheName, int diskCacheSize) {
         super(new CacheDirectoryGetter() {
             @Override
